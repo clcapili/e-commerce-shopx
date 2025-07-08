@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>shopx — Shipping</title>
+        <meta name="title" content="Shop" />
+        <meta name="description" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="icon" type="image/png" href="/favicon.png">
+
+        <link href="css/styles.css" rel="stylesheet">
+    </head>
+    <body>
+        <!-- header -->
+        <header>
+            <!-- Skip link for accessibility -->
+            <div class="visually-hidden-focusable">
+                <a href="#main-content" class="skip-link">Skip to main content</a>
+            </div>
+
+            <div class="container">
+                <nav aria-label="Breadcrumb" class="breadcrumb">
+                    <ol>
+                        <li><a href="/">Shop</a></li>
+                        <li><a href="/cart.html">Cart</a></li>
+                        <li aria-current="page">Shipping</li>
+                    </ol>
+                </nav>
+            </div>
+        </header>
+
+        <!-- main -->
+        <main id="main-content">
+            <div id="shippingContent">
+                <div class="container">
+                    <h1>Delivery Information</h1>
+
+                    <div class="row">
+                        <!-- shipping address -->
+                        <div class="col">
+                            <section class="checkout-wrapper">
+                                <form id="shippingInfoForm" novalidate>
+                                    <h2 class="form-heading">Shipping Address</h2>
+                                    <p class="form-note" id="formNote">Fields marked <span aria-hidden="true">*</span> are required.</p>
+
+                                    <div class="form-field">
+                                        <label for="firstName" class="form-label">First Name<span aria-hidden="true">*</span></label>
+                                        <input type="text" id="firstName" name="firstName" class="form-control" required aria-required="true" aria-describedby="firstName-error" />
+                                        <span class="error-message" id="firstName-error" aria-live="polite"></span>
+                                    </div>
+
+                                    <div class="form-field">
+                                        <label for="lastName" class="form-label">Last Name<span aria-hidden="true">*</span></label>
+                                        <input type="text" id="lastName" name="lastName" class="form-control" required aria-required="true" aria-describedby="lastName-error" />
+                                        <span class="error-message" id="lastName-error" aria-live="polite"></span>
+                                    </div>
+
+                                    <div class="form-field">
+                                        <label for="phone" class="form-label">Phone Number<span aria-hidden="true">*</span></label>
+                                        <input type="tel" id="phone" name="phone" class="form-control" required aria-required="true" aria-describedby="phone-error" />
+                                        <span class="error-message" id="phone-error" aria-live="polite"></span>
+                                    </div>
+
+                                    <div class="form-field">
+                                        <label for="shipStAddress" class="form-label">Street Address<span aria-hidden="true">*</span></label>
+                                        <input type="text" id="shipStAddress" name="shipStAddress" class="form-control" required aria-required="true" aria-describedby="shipStAddress-error" />
+                                        <span class="error-message" id="shipStAddress-error" aria-live="polite"></span>
+                                    </div>
+
+                                    <div class="form-field">
+                                        <label for="shipAddressDetails" class="form-label">Address Details</label>
+                                        <input type="text" id="shipAddressDetails" name="shipAddressDetails" class="form-control" placeholder="Apt, suite/unit, floor, buzzer code, building, etc." aria-describedby="shipAddressDetails-error" />
+                                        <span class="error-message" id="shipAddressDetails-error" aria-live="polite"></span>
+                                    </div>
+
+                                    <div class="form-field">
+                                        <label for="shipCity" class="form-label">City<span aria-hidden="true">*</span></label>
+                                        <input type="text" id="shipCity" name="shipCity" class="form-control" required aria-required="true" aria-describedby="shipCity-error" />
+                                        <span class="error-message" id="shipCity-error" aria-live="polite"></span>
+                                    </div>
+
+                                    <div class="form-field">
+                                        <label for="shipCountry" class="form-label">Country<span aria-hidden="true">*</span></label>
+                                        <select id="shipCountry" name="shipCountry" class="form-select" required aria-required="true" aria-describedby="shipCountry-error">
+                                            <option value="" selected>Select Country</option>
+                                            <option value="CA">Canada</option>
+                                            <option value="US">United States</option>
+                                        </select>
+                                        <span class="error-message" id="shipCountry-error" aria-live="polite"></span>
+                                    </div>
+
+                                    <div class="form-field">
+                                        <label for="shipProvinceState" id="shipProvinceStateLabel" class="form-label">Province<span aria-hidden="true">*</span></label>
+                                        <select id="shipProvinceState" name="shipProvinceState" class="form-select" required aria-required="true" aria-describedby="shipProvinceState-error">
+                                            <!-- options -->
+                                        </select>
+                                        <span class="error-message" id="shipProvinceState-error" aria-live="polite"></span>
+                                    </div>
+
+
+                                    <div class="form-field">
+                                        <label for="shipPostalZip" id="shipPostalZipLabel" class="form-label">Postal Code<span aria-hidden="true">*</span></label>
+                                        <input type="text" id="shipPostalZip" name="shipPostalZip" class="form-control" required aria-required="true" aria-describedby="shipPostalZip-error" />
+                                        <span class="error-message" id="shipPostalZip-error" aria-live="polite"></span>
+                                    </div>
+
+                                    <button type="submit" id="btnToShipping" class="btn">Next</button>
+                                </form>
+
+                                <div id="shippingSummary" class="shipping-summary" aria-live="polite"></div>
+                            </section>
+                        </div>
+
+                        <!-- shipping options -->
+                        <div class="col">
+                            <div class="sticky-element">
+                                <section class="checkout-wrapper delivery">
+                                    <h2>Delivery Options</h2>
+                                    <p id="deliveryNote">Please provide a shipping address to see available delivery options</p>
+
+                                    <form id="shippingMethodForm" style="display:none" novalidate>
+                                        <div id="shippingOptionsWrapper">
+                                            <!-- delivery options -->
+                                        </div>
+
+                                        <span class="error-message" id="shippingMethod-error" aria-live="polite"></span>
+
+                                        <button type="submit" class="btn">Continue to Payment</button>
+                                    </form>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- footer -->
+        <footer role="contentinfo" aria-label="Footer">
+            <div class="container">
+                <small>&copy; 2025 shopx. All rights reserved.</small>
+            </div>
+        </footer>
+        
+        <script src="/js/script.js"></script>
+        <script type="module" src="/js/load/loadShippingForm.js"></script>
+    </body>
+</html>

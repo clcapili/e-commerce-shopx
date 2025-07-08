@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>shopx</title>
+        <meta name="title" content="Shop" />
+        <meta name="description" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="icon" type="image/png" href="/favicon.png">
+
+        <link href="css/styles.css" rel="stylesheet">
+    </head>
+    <body>
+        <!-- header -->
+        <header>
+            <!-- Skip link for accessibility -->
+            <div class="visually-hidden-focusable">
+                <a href="#main-content" class="skip-link">Skip to main content</a>
+            </div>
+
+            <div class="container">
+                <nav aria-label="Breadcrumb" class="breadcrumb">
+                    <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+                        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                            <a href="/" itemprop="item">
+                                <span itemprop="name">Shop</span>
+                            </a>
+                            <meta itemprop="position" content="1" />
+                        </li>
+
+                        <li class="breadcrumb-current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page">
+                            <span itemprop="name"></span>
+                            <meta itemprop="position" content="2" />
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+            
+            <a href="/cart.html" class="btn-cart" aria-label="View cart">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                </svg>
+                <span class="cart-count">0</span>
+            </a>
+        </header>
+        
+        <!-- main -->
+        <main id="main-content">
+            <div id="productContent">
+                <div class="container">
+                    <div id="productSingle" class="row">
+                        <div class="col">
+                            <img class="img-fluid product-image" loading="lazy" alt="" src="" srcset=""
+                                sizes="(min-width: 992px) 800px,
+                                        (min-width: 768px) 600px,
+                                        100vw"
+                            />
+                        </div>
+
+                        <div class="col">
+                            <article class="product" aria-labelledby="productTitle">
+                                <div class="product-content">
+                                    <h2 id="productTitle" class="product-title"></h2>
+
+                                    <h3 class="product-price"></h3>
+
+                                    <p class="product-description"></p>
+
+                                    <form class="product-options">
+                                        <fieldset class="product-attributes">
+                                            <legend class="visually-hidden">Select product attributes</legend>
+
+                                            <div>
+                                                <label for="size" class="form-label">Size</label>
+                                                <select id="size" class="form-select" name="size" required aria-required="true">
+                                                    <!-- size options -->
+                                                </select>
+                                            </div>
+
+                                            <div>
+                                                <label for="color" class="form-label">Color</label>
+                                                <select id="color" class="form-select" name="color" required aria-required="true">
+                                                    <!-- color options -->
+                                                </select>
+                                            </div>
+                                        </fieldset>
+
+                                        <div class="form-field char-limit-wrapper">
+                                            <label for="notes" class="form-label">Notes or special instructions <span class="optional" aria-hidden="true">(Optional)</span></label>
+                                            <textarea id="notes" class="form-control" name="notes" rows="4" cols="50" maxlength="50" placeholder="Enter your notes here" aria-describedby="notesHelp charCount"></textarea>
+                                            <div id="charCount" class="char-count" aria-live="polite"><span>50</span> characters remaining</div>
+                                            <p id="notesHelp" class="visually-hidden">Please provide any additional information or special instructions.</p>
+                                        </div>
+
+                                        <div class="product-actions">
+                                            <div class="quantity-control" role="group" aria-label="Quantity selector">
+                                                <button type="button" class="form-btn-qty" data-action="decrease" aria-label="Decrease quantity">-</button>
+                                                <span class="form-qty-value" aria-live="polite">1</span>
+                                                <button type="button" class="form-btn-qty" data-action="increase" aria-label="Increase quantity">+</button>
+                                            </div>
+
+                                            <button type="submit" class="btn btn-add-to-cart" aria-label="Add product to cart with selected options">Add to Cart</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- footer -->
+        <footer role="contentinfo" aria-label="Footer">
+            <div class="container">
+                <small>&copy; 2025 shopx. All rights reserved.</small>
+            </div>
+        </footer>
+
+        <!-- modal added to cart -->
+        <div id="addedToCartModal" class="modal modal-right-panel" role="alertdialog" aria-modal="true" aria-labelledby="addedModalTitle">
+            <div class="modal-dialog modal-dialog-slide-left">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 id="addedModalTitle" class="modal-title"><span id="addedQty"></span> item(s) added to your cart</h2>
+                        <button class="btn-modal-close modal-close" aria-label="Close modal">&times;</button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="added-item">
+                            <img id="addedProductImage" class="img-fluid" src="" alt="" />
+
+                            <div>
+                                <h3 id="addedProductName" class="added-product-name"></h3>
+                                <p class="added-product-size">Size <span id="addedProductSize"></span></p>
+                                <p class="added-product-color">Color <span id="addedProductColor"></span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <a href="/cart.html" class="btn">View Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- modal max quanity -->
+        <div id="maxQtyModal" class="modal" role="alertdialog" aria-modal="true" aria-labelledby="maxQtyModalTitle">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 id="maxQtyModalTitle" class="modal-title">Warning</h2>
+                        <button class="btn-modal-close modal-close" aria-label="Close modal">&times;</button>
+                    </div>
+                    
+                    <div class="modal-body">
+                        <p>You have reached the unit limit for this item. If you want to add more, we recommend placing an additional order.</p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn-outline modal-close">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script src="/js/script.js"></script>
+        <script type="module" src="/js/load/loadProductSingle.js"></script>
+        <script type="module" src="/js/load/loadCart.js"></script>
+    </body>
+</html>

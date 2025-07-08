@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>shopx — Payment</title>
+        <meta name="title" content="Shop" />
+        <meta name="description" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="icon" type="image/png" href="/favicon.png">
+
+        <link href="css/styles.css" rel="stylesheet">
+    </head>
+    <body>
+        <!-- header -->
+        <header>
+            <!-- Skip link for accessibility -->
+            <div class="visually-hidden-focusable">
+                <a href="#main-content" class="skip-link">Skip to main content</a>
+            </div>
+
+            <div class="container">
+                <nav aria-label="Breadcrumb" class="breadcrumb">
+                    <ol>
+                        <li><a href="/">Shop</a></li>
+                        <li><a href="/cart.html">Cart</a></li>
+                        <li><a href="/shipping.html">Shipping</a></li>
+                        <li aria-current="page">Payment</li>
+                    </ol>
+                </nav>
+            </div>
+        </header>
+
+        <!-- main -->
+        <main id="main-content">
+            <div id="paymentContent">
+                <div class="container">
+                    <h1>Payment</h1>
+
+                    <div class="row">
+                        <div class="col">
+                            <section class="checkout-wrapper">
+                                <form id="paymentInfoForm" novalidate>
+                                    <h2 class="form-heading">Payment Information</h2>
+                                    <p class="form-note">Fields marked <span aria-hidden="true">*</span> are required.</p>
+
+                                    <div class="form-field">
+                                        <label for="email" class="form-label">Email Address<span aria-hidden="true">*</span></label>
+                                        <input type="email" id="email" name="email" class="form-control" required aria-required="true" aria-describedby="email-error" />
+                                        <span class="error-message" id="email-error" aria-live="polite"></span>
+                                    </div>
+
+                                    <h3 class="form-subheading">Payment Option</h3>
+                                    <div class="form-field">
+                                        <label for="cardName" class="form-label">Name on Card<span aria-hidden="true">*</span></label>
+                                        <input type="text" id="cardName" name="cardName" class="form-control" required aria-required="true" aria-describedby="cardName-error" />
+                                        <span class="error-message" id="cardName-error" aria-live="polite"></span>
+                                    </div>
+
+                                    <div class="form-field">
+                                        <label for="cardNumber" class="form-label">Card Number<span aria-hidden="true">*</span></label>
+                                        <input type="text" id="cardNumber" name="cardNumber" class="form-control" inputmode="numeric" pattern="\d*" required aria-required="true" aria-describedby="cardNumber-error" />
+                                        <span class="error-message" id="cardNumber-error" aria-live="polite"></span>
+                                    </div>
+
+                                    <div class="form-field">
+                                        <label for="expiry" class="form-label">Expiry Date (MM/YY)<span aria-hidden="true">*</span></label>
+                                        <input type="text" id="expiry" name="expiry" class="form-control" placeholder="MM/YY" required aria-required="true" aria-describedby="expiry-error" />
+                                        <span class="error-message" id="expiry-error" aria-live="polite"></span>
+                                    </div>
+
+                                    <div class="form-field">
+                                        <label for="cvv" class="form-label">CVV<span aria-hidden="true">*</span></label>
+                                        <input type="text" id="cvv" name="cvv" class="form-control" inputmode="numeric" pattern="\d{3,4}" maxlength="4" required aria-required="true" aria-describedby="cvv-error" />
+                                        <span class="error-message" id="cvv-error" aria-live="polite"></span>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input type="checkbox" id="sameAsShipping" name="sameAsShipping" class="form-check-input" />
+                                        <label for="sameAsShipping" class="form-check-label">Same as shipping address</label>
+                                    </div>
+
+                                    <div id="billingAddressFields">
+                                        <h3 class="form-subheading">Billing Address</h3>
+
+                                        <div class="form-field">
+                                            <label for="billPhone" class="form-label">Phone Number<span aria-hidden="true">*</span></label>
+                                            <input type="tel" id="billPhone" name="billPhone" class="form-control" required aria-required="true" aria-describedby="billPhone-error" />
+                                            <span class="error-message" id="billPhone-error" aria-live="polite"></span>
+                                        </div>
+
+                                        <div class="form-field">
+                                            <label for="billStAddress" class="form-label">Street Address<span aria-hidden="true">*</span></label>
+                                            <input type="text" id="billStAddress" name="billStAddress" class="form-control" required aria-required="true" aria-describedby="billStAddress-error" />
+                                            <span class="error-message" id="billStAddress-error" aria-live="polite"></span>
+                                        </div>
+
+                                        <div class="form-field">
+                                            <label for="billAddressDetails" class="form-label">Address Details</label>
+                                            <input type="text" id="billAddressDetails" name="billAddressDetails" class="form-control" placeholder="Apt, suite/unit, floor, buzzer code, building, etc." aria-describedby="billAddressDetails-error" />
+                                            <span class="error-message" id="billAddressDetails-error" aria-live="polite"></span>
+                                        </div>
+
+                                        <div class="form-field">
+                                            <label for="billCity" class="form-label">City<span aria-hidden="true">*</span></label>
+                                            <input type="text" id="billCity" name="billCity" class="form-control" required aria-required="true" aria-describedby="billCity-error" />
+                                            <span class="error-message" id="billCity-error" aria-live="polite"></span>
+                                        </div>
+
+                                        <div class="form-field">
+                                            <label for="billCountry" class="form-label">Country<span aria-hidden="true">*</span></label>
+                                            <select id="billCountry" name="billCountry" class="form-select" required aria-required="true" aria-describedby="billCountry-error">
+                                                <option value="" selected>Select Country</option>
+                                                <option value="CA">Canada</option>
+                                                <option value="US">United States</option>
+                                            </select>
+                                            <span class="error-message" id="billCountry-error" aria-live="polite"></span>
+                                        </div>
+
+                                        <div class="form-field">
+                                            <label for="billProvinceState" id="billProvinceStateLabel" class="form-label">Province<span aria-hidden="true">*</span></label>
+                                            <select id="billProvinceState" name="billProvinceState" class="form-select" required aria-required="true" aria-describedby="billProvinceState-error">
+                                                <!-- provinces/states -->
+                                            </select>
+                                            <span class="error-message" id="billProvinceState-error" aria-live="polite"></span>
+                                        </div>
+
+                                        <div class="form-field">
+                                            <label for="billPostalZip" id="billPostalZipLabel" class="form-label">Postal Code<span aria-hidden="true">*</span></label>
+                                            <input type="text" id="billPostalZip" name="billPostalZip" class="form-control" required aria-required="true" aria-describedby="billPostalZip-error" />
+                                            <span class="error-message" id="billPostalZip-error" aria-live="polite"></span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </section>
+                        </div>
+
+                        <div class="col">
+                            <div class="sticky-element">
+                                <div class="checkout-wrapper order-summary">
+                                    <div class="summary-header">
+                                        <h3 class="summary-heading">Order Summary | <span id="summaryTotalItems"></span> Item(s)</h3>
+                                        <a href="/cart.html" class="summary-edit-link">Edit</a>
+                                    </div>
+
+                                    <div class="coupon-wrapper">
+                                        <form id="couponForm" novalidate>
+                                            <div class="form-field" id="couponFieldGroup">
+                                                <label for="couponCode" class="form-label">ENTER COUPON</label>
+                                                <div class="coupon-input-group">
+                                                    <input type="text" id="couponCode" name="couponCode" class="form-control" placeholder="Enter code" aria-describedby="couponCode-error" aria-invalid="false" />
+                                                    <button type="submit" id="couponToggleBtn" class="btn-outline">Apply</button>
+                                                </div>
+                                                <span class="error-message" id="couponCode-error" aria-live="polite"></span>
+                                            </div>
+
+                                            <div class="coupon-result" id="couponResult" aria-live="polite">
+                                                <span id="couponMessage" class="coupon-message" role="alert"></span>
+                                                <button type="button" id="removeCouponBtn" class="btn-remove" aria-label="Remove coupon">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <div id="orderSummary" aria-label="Order Summary">
+                                        <!-- order summary-->
+                                    </div>
+                                </div>
+
+                                <div class="checkout-wrapper purchase">
+                                    <p class="purchase-note">Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our <a href="/privacy-policy.html" target="_blank">privacy policy</a>.</p>
+
+                                    <div class="form-check">
+                                        <input type="checkbox" id="confirmPurchase" class="form-check-input" />
+                                        <label for="confirmPurchase" class="form-check-label">
+                                            I have read and agree to the website <a href="/terms-conditions.html" target="_blank">Terms and Conditions</a>.
+                                        </label>
+                                    </div>
+
+                                    <button type="submit" form="paymentInfoForm" id="purchaseBtn" class="btn" disabled>
+                                        Complete Purchase
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- footer -->
+        <footer role="contentinfo" aria-label="Footer">
+            <div class="container">
+                <small>&copy; 2025 shopx. All rights reserved.</small>
+            </div>
+        </footer>
+        
+        <script src="/js/script.js"></script>
+        <script type="module" src="/js/load/loadPayment.js"></script>
+    </body>
+</html>

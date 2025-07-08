@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>shopx — Cart</title>
+        <meta name="title" content="Shop" />
+        <meta name="description" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="icon" type="image/png" href="/favicon.png">
+
+        <link href="css/styles.css" rel="stylesheet">
+    </head>
+    <body>
+        <!-- header -->
+        <header>
+            <!-- Skip link for accessibility -->
+            <div class="visually-hidden-focusable">
+                <a href="#main-content" class="skip-link">Skip to main content</a>
+            </div>
+
+            <div class="container">
+                <nav aria-label="Breadcrumb" class="breadcrumb">
+                    <ol>
+                        <li><a href="/">Shop</a></li>
+                        <li aria-current="page">Cart</li>
+                    </ol>
+                </nav>
+            </div>
+        </header>
+
+        <!-- main -->
+        <main id="main-content">
+            <div id="cartContent">
+                <div class="container">
+                    <h1 id="cartHeading">Cart</h1>
+
+                    <table class="cart-table" aria-labelledby="cartHeading">
+                        <thead id="cartThead">
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col" colspan="3">Product</th>
+                                <th scope="col">Qty</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Subtotal</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="cartItems">
+                            <!-- Cart rows here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <!-- footer -->
+        <footer role="contentinfo" aria-label="Footer">
+            <div class="container">
+                <small>&copy; 2025 shopx. All rights reserved.</small>
+            </div>
+        </footer>
+
+        <!-- modal edit form -->
+        <div id="editModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="editModalTitle">
+            <div class="modal-dialog modal-dialog-slide-down modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 id="editModalTitle" class="modal-title">Edit Item</h2>
+
+                        <button type="button" class="btn-modal-close modal-close">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form id="editForm">
+                            <div class="row">
+                                <div class="col">
+                                    <img id="editPreviewImage" src="" alt="" />
+                                </div>
+
+                                <div class="col">
+                                    <div class="form-field">
+                                        <label for="editSize" class="form-label">Size</label>
+                                        <select id="editSize" class="form-select" name="edit-size">
+                                            <option value="" disabled>Select size</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-field">
+                                        <label for="editColor" class="form-label">Color</label>
+                                        <select id="editColor" class="form-select" name="edit-color">
+                                            <option value="" disabled>Select color</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-field char-limit-wrapper">
+                                        <label for="editNotes" class="form-label">Notes</label>
+                                        <textarea id="editNotes" class="form-control" name="edit-notes" rows="3" cols="50" maxlength="50" placeholder="Enter your notes here" aria-describedby="notes-help"></textarea>
+                                        <div class="char-count"><span>50</span> characters remaining</div>
+                                        <p id="notes-help" class="visually-hidden">Please provide any additional information or special instructions.</p>
+                                    </div>
+
+                                    <button type="submit" class="btn-outline btn-update">Update</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- modal remove item -->
+        <div id="removeFromCartModal" class="modal modal-remove-from-cart" role="alertdialog" aria-modal="true" aria-labelledby="removeModalTitle">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 id="removeModalTitle" class="modal-title">Remove Item</h2>
+                        <button class="btn-modal-close modal-close" aria-label="Close modal">&times;</button>
+                    </div>
+
+                    <div class="modal-body">
+                        <p>Are you sure you want to remove this item from your cart?</p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="modal-remove btn">Remove</button>
+                        <button type="button" class="btn-outline modal-close">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- modal max quanity -->
+        <div id="maxQtyModal" class="modal" role="alertdialog" aria-modal="true" aria-labelledby="maxQtyModalTitle">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 id="maxQtyModalTitle" class="modal-title">Warning</h2>
+                        <button class="btn-modal-close modal-close" aria-label="Close modal">&times;</button>
+                    </div>
+                    
+                    <div class="modal-body">
+                        <p>You have reached the unit limit for this item. If you want to add more, we recommend placing an additional order.</p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn-outline modal-close">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script src="/js/script.js"></script>
+        <script type="module" src="/js/load/loadCart.js"></script>
+    </body>
+</html>
