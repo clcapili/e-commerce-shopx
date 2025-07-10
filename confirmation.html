@@ -12,7 +12,7 @@
 
         <link href="css/styles.css" rel="stylesheet">
     </head>
-    <body>
+    <body class="confirmation-page">
         <!-- header -->
         <header>
             <!-- Skip link for accessibility -->
@@ -44,23 +44,44 @@
             <div id="confirmationContent">
                 <div class="container">
                     <section id="thankYou" hidden>
-                        <h1>Thank you for your purchase!</h1>
-                        <p>Your order <strong>#<span id="orderNumber"></span></strong> has been placed.</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+
+                        <div>
+                            <p>Order <strong>#<span id="orderNumber"></span></strong></p>
+                            <h1>Thank you for your purchase!</h1>
+                        </div>
                     </section>
 
-                    <section id="orderSummary" hidden>
-                        <h2>Order Summary</h2>
-                        <div id="items"></div>
-                        <div id="totals"></div>
-                    </section>
+                    <div class="row">
+                        <div class="col">
+                            <section id="orderUpdates" class="checkout-wrapper">
+                                <h2>Order updates</h2>
+                                <p>Your order will be processed within 24 hours during the working days. We will notify you by email once your order has been shipped.</p>
+                            </section>
+                            <section id="customerDetails" class="checkout-wrapper" hidden>
+                                <h2>Customer Details</h2>
 
-                    <section id="shippingBilling" hidden>
-                        <h2>Shipping &amp; Billing</h2>
-                        <div id="shippingBlock"></div>
-                        <div id="billingBlock"></div>
-                    </section>
+                                <p id="customerEmail"></p>
+                                <p id="customerPhone"></p>
 
-                    <a href="/" id="continueShopping" class="btn">Continue shopping</a>
+                                <div id="shippingBlock"></div>
+                                <div id="billingBlock"></div>
+                            </section>
+                        </div>
+
+                        <div class="col">
+                            <section id="orderSummary" class="checkout-wrapper" hidden>
+                                <h2>Your order</h2>
+
+                                <div id="items"></div>
+                                <div id="totals" class="summary"></div>
+                            </section>
+
+                            <a href="/" id="continueShopping" class="btn">Continue shopping</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>

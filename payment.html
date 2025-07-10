@@ -165,63 +165,65 @@
                                                 </li>
                                             </ul>
                                         </div>
-
-                                        <div class="form-check">
-                                            <input type="checkbox" id="sameAsShipping" name="sameAsShipping" class="form-check-input" />
-                                            <label for="sameAsShipping" class="form-check-label">Same as shipping address</label>
-                                        </div>
                                     </fieldset>
                                     
 
                                     <fieldset id="billingAddressFields">
                                         <legend>Billing Address</legend>
 
-                                        <div class="form-field">
-                                            <label for="billPhone" class="form-label">Phone Number<span aria-hidden="true">*</span></label>
-                                            <input type="tel" id="billPhone" name="billPhone" class="form-control" required aria-required="true" aria-describedby="billPhone-error" />
-                                            <span class="error-message" id="billPhone-error" aria-live="polite"></span>
+                                        <div class="form-check">
+                                            <input type="checkbox" id="sameAsShipping" name="sameAsShipping" class="form-check-input" />
+                                            <label for="sameAsShipping" class="form-check-label">Same as shipping address</label>
                                         </div>
 
-                                        <div class="form-field">
-                                            <label for="billStAddress" class="form-label">Street Address<span aria-hidden="true">*</span></label>
-                                            <input type="text" id="billStAddress" name="billStAddress" class="form-control" required aria-required="true" aria-describedby="billStAddress-error" />
-                                            <span class="error-message" id="billStAddress-error" aria-live="polite"></span>
-                                        </div>
+                                        <div id="billingFieldsGroup">
+                                            <div class="form-field">
+                                                <label for="billStAddress" class="form-label">Street Address<span aria-hidden="true">*</span></label>
+                                                <input type="text" id="billStAddress" name="billStAddress" class="form-control" required aria-required="true" aria-describedby="billStAddress-error" />
+                                                <span class="error-message" id="billStAddress-error" aria-live="polite"></span>
+                                            </div>
 
-                                        <div class="form-field">
-                                            <label for="billAddressDetails" class="form-label">Address Details</label>
-                                            <input type="text" id="billAddressDetails" name="billAddressDetails" class="form-control" placeholder="Apt, suite/unit, floor, buzzer code, building, etc." aria-describedby="billAddressDetails-error" />
-                                            <span class="error-message" id="billAddressDetails-error" aria-live="polite"></span>
-                                        </div>
+                                            <div class="form-field">
+                                                <label for="billAddressDetails" class="form-label">Address Details</label>
+                                                <input type="text" id="billAddressDetails" name="billAddressDetails" class="form-control" placeholder="Apt, suite/unit, floor, buzzer code, building, etc." aria-describedby="billAddressDetails-error" />
+                                                <span class="error-message" id="billAddressDetails-error" aria-live="polite"></span>
+                                            </div>
 
-                                        <div class="form-field">
-                                            <label for="billCity" class="form-label">City<span aria-hidden="true">*</span></label>
-                                            <input type="text" id="billCity" name="billCity" class="form-control" required aria-required="true" aria-describedby="billCity-error" />
-                                            <span class="error-message" id="billCity-error" aria-live="polite"></span>
-                                        </div>
+                                            <div class="form-field">
+                                                <label for="billCity" class="form-label">City<span aria-hidden="true">*</span></label>
+                                                <input type="text" id="billCity" name="billCity" class="form-control" required aria-required="true" aria-describedby="billCity-error" />
+                                                <span class="error-message" id="billCity-error" aria-live="polite"></span>
+                                            </div>
 
-                                        <div class="form-field">
-                                            <label for="billCountry" class="form-label">Country<span aria-hidden="true">*</span></label>
-                                            <select id="billCountry" name="billCountry" class="form-select" required aria-required="true" aria-describedby="billCountry-error">
-                                                <option value="" selected>Select Country</option>
-                                                <option value="CA">Canada</option>
-                                                <option value="US">United States</option>
-                                            </select>
-                                            <span class="error-message" id="billCountry-error" aria-live="polite"></span>
-                                        </div>
+                                            <div class="form-field">
+                                                <label for="billCountry" class="form-label">Country<span aria-hidden="true">*</span></label>
+                                                <select id="billCountry" name="billCountry" class="form-select" required aria-required="true" aria-describedby="billCountry-error">
+                                                    <option value="" selected>Select Country</option>
+                                                    <option value="CA">Canada</option>
+                                                    <option value="US">United States</option>
+                                                </select>
+                                                <span class="error-message" id="billCountry-error" aria-live="polite"></span>
+                                            </div>
 
-                                        <div class="form-field">
-                                            <label for="billProvinceState" id="billProvinceStateLabel" class="form-label">Province<span aria-hidden="true">*</span></label>
-                                            <select id="billProvinceState" name="billProvinceState" class="form-select" required aria-required="true" aria-describedby="billProvinceState-error">
-                                                <!-- provinces/states -->
-                                            </select>
-                                            <span class="error-message" id="billProvinceState-error" aria-live="polite"></span>
-                                        </div>
+                                            <div class="form-field">
+                                                <label for="billProvinceState" id="billProvinceStateLabel" class="form-label">Province<span aria-hidden="true">*</span></label>
+                                                <select id="billProvinceState" name="billProvinceState" class="form-select" required aria-required="true" aria-describedby="billProvinceState-error">
+                                                    <!-- provinces/states -->
+                                                </select>
+                                                <span class="error-message" id="billProvinceState-error" aria-live="polite"></span>
+                                            </div>
 
-                                        <div class="form-field">
-                                            <label for="billPostalZip" id="billPostalZipLabel" class="form-label">Postal Code<span aria-hidden="true">*</span></label>
-                                            <input type="text" id="billPostalZip" name="billPostalZip" class="form-control" required aria-required="true" aria-describedby="billPostalZip-error" />
-                                            <span class="error-message" id="billPostalZip-error" aria-live="polite"></span>
+                                            <div class="form-field">
+                                                <label for="billPostalZip" id="billPostalZipLabel" class="form-label">Postal Code<span aria-hidden="true">*</span></label>
+                                                <input type="text" id="billPostalZip" name="billPostalZip" class="form-control" required aria-required="true" aria-describedby="billPostalZip-error" />
+                                                <span class="error-message" id="billPostalZip-error" aria-live="polite"></span>
+                                            </div>
+                                            
+                                            <div class="form-field">
+                                                <label for="billPhone" class="form-label">Phone Number<span aria-hidden="true">*</span></label>
+                                                <input type="tel" id="billPhone" name="billPhone" class="form-control" required aria-required="true" aria-describedby="billPhone-error" />
+                                                <span class="error-message" id="billPhone-error" aria-live="polite"></span>
+                                            </div>
                                         </div>
                                     </fieldset>
                                 </form>

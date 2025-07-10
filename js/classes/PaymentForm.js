@@ -5,7 +5,7 @@ import { isValidEmail, isValidCardNumber, isValidExpiry, isValidPostalCode, getP
 class PaymentForm {
     constructor(element) {
         this.form = element;
-        this.billingAddressFields = this.form.querySelector('#billingAddressFields');
+        this.billingFieldsGroup = this.form.querySelector('#billingFieldsGroup');
         this.shippingSummary = document.getElementById('shippingSummary');
 
         this.fields = {
@@ -167,11 +167,11 @@ class PaymentForm {
 
     toggleBillingAddressFields() {
         if (this.fields.sameAsShipping.checked) {
-            this.billingAddressFields.style.display = 'none';
+            this.billingFieldsGroup.style.display = 'none';
 
             ['billPhone', 'billStAddress', 'billCity', 'billCountry', 'billProvinceState', 'billPostalZip'].forEach(field => this.clearError(field));
         } else {
-            this.billingAddressFields.style.display = 'block';
+            this.billingFieldsGroup.style.display = 'block';
             this.populateProvinceStateOptions();
         }
     }
@@ -337,21 +337,15 @@ class PaymentForm {
             return;
         }
 
-        const methodLine = method
-            ? `<p>Method: ${method.label}</p>`
-            : '';
-
         this.shippingSummary.innerHTML = `
-            <div class="summary-header">
-                <h3 class="summary-heading">Shipping Summary</h3>
+            <div class="summary-header summary-header-billing">
+                <h3 class="summary-heading">Shipping Information</h3>
                 <a href="/shipping.html" class="summary-edit-link" style="display: inline-block;">Edit</a>
             </div>
-            <p><strong>${info.firstName} ${info.lastName}</strong></p>
             <p>${info.streetAddress}${info.addressDetails ? ', ' + info.addressDetails : ''}</p>
             <p>${info.city}, ${info.provinceOrState}, ${info.postalOrZip}</p>
             <p>${info.countryLabel}</p>
             <p>Phone: ${info.phone}</p>
-            ${methodLine}
         `;
         this.shippingSummary.hidden = false;
     }

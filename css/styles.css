@@ -43,6 +43,10 @@ body {
     color: #000000;
 }
 
+body.confirmation-page {
+    background-color: #F4F4F4;
+}
+
 .container {
     max-width: 100%;
     padding: 0 1.5rem;
@@ -720,8 +724,18 @@ textarea.form-control {
   color: #008000;
 }
 
+/* billing */
+#billingAddressFields .form-check {
+    margin-bottom: 1rem;
+}
+
+#billingAddressFields .form-field:last-child {
+    margin-bottom: 0;
+}
+
 /* checkout */
 .checkout-wrapper {
+    background-color: #FFFFFF;
     padding: 1rem;
     border: 1px solid #e0e0e0;
 }
@@ -769,6 +783,40 @@ textarea.form-control {
     font-weight: 700;
 }
 
+/* confirmation */
+#thankYou {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1rem;
+}
+
+#thankYou svg {
+    width: 45px;
+}
+
+#thankYou h1,
+#thankYou p,
+.checkout-wrapper#orderUpdates p,
+.checkout-wrapper #shippingBlock p,
+.checkout-wrapper #billingBlock p {
+    margin: 0;
+}
+
+.checkout-wrapper#orderUpdates,
+.checkout-wrapper#orderSummary {
+    margin-bottom: 1rem;
+}
+
+.checkout-wrapper#orderUpdates h2,
+.checkout-wrapper#customerDetails h2 {
+    margin: 0 0 .5rem;
+}
+
+.checkout-wrapper#orderSummary h2,
+.checkout-wrapper#orderSummary p {
+    margin: 0 0 1rem;
+}
+
 /* coupon */
 .coupon-wrapper {
     margin-bottom: 1rem;
@@ -798,7 +846,13 @@ textarea.form-control {
     justify-content: space-between;
     margin-bottom: 1rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #000000;
+}
+
+.summary-header.summary-header-billing {
+    padding-top: 1rem;
+    margin-top: .5rem;
+    border-top: 1px solid #000000;
 }
 
 .summary-header .summary-heading {

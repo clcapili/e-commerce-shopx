@@ -5,7 +5,7 @@ class OrderConfirmation {
 		this.summaryEl = this.element.querySelector('#orderSummary');
 		this.itemsEl = this.element.querySelector('#items');
 		this.totalsEl = this.element.querySelector('#totals');
-		this.shipBillEl = this.element.querySelector('#shippingBilling');
+		this.customerDetailsEl = this.element.querySelector('#customerDetails');
 		this.shippingBlock = this.element.querySelector('#shippingBlock');
 		this.billingBlock = this.element.querySelector('#billingBlock');
 		this.orderNumEl = this.element.querySelector('#orderNumber');
@@ -16,7 +16,7 @@ class OrderConfirmation {
 	init() {
 		const raw = sessionStorage.getItem('orderData');
 		if (!raw) {
-			window.location.replace('/');
+			// window.location.replace('/');
 			return;
 		}
 
@@ -39,8 +39,8 @@ class OrderConfirmation {
 		this.renderTotals(cart, shipping, coupon);
 		this.renderAddresses(shipping, payment);
 
-		sessionStorage.removeItem('coupon');
-		sessionStorage.removeItem('orderData');
+		// sessionStorage.removeItem('coupon');
+		// sessionStorage.removeItem('orderData');
 	}
 
 	renderOrderHeader(id) {
@@ -96,11 +96,33 @@ class OrderConfirmation {
 		const total = subtotal + shippingFee + tax - discount;
 
 		this.totalsEl.innerHTML = `
-			<p>Subtotal: ${this.money(subtotal)}</p>
-			<p>Shipping: ${this.money(shippingFee)}</p>
-			<p>Tax (13% HST): ${this.money(tax)}</p>
-			${discount > 0 ? `<p>Discount: -${this.money(discount)}</p>` : ''}
-			<p><strong>Total: ${this.money(total)}</strong></p>
+			<div class="summary-item summary-subtotal">
+				<span class="type">Subtotal</span>
+				<span class="fee">${this.money(subtotal)}</span>
+			</div>
+
+			<div class="summary-item">
+				<span>Shipping</span>
+				<span>${this.money(shippingFee)}</span>
+			</div>
+
+			<div class="summary-item">
+				<span>Tax</span>
+				<span>${this.money(tax)}</span>
+			</div>
+
+			${discount > 0 ?`
+				<div class="summary-item summary-coupon">
+					<span>Discount</span>
+					<span class="discount">-${this.money(discount)}</span>
+				</div>
+			`
+				: ''}
+
+			<div class="summary-item summary-total">
+				<span class="type">Total</span>
+				<span class="fee">${this.money(total)}</span>
+			</div>
 		`;
 
 		this.summaryEl.hidden = false;
@@ -108,30 +130,40 @@ class OrderConfirmation {
 
 
 	renderAddresses(shipping, payment) {
+		const shippingInfo = shipping?.info || {};
+		const billingInfo = payment.sameAsShipping ? shippingInfo : (payment.billingAddress || {});
+
+		const email = payment.email || '';
+		const phone = shippingInfo.phone || '';
+
+		// email & phone
+		const emailEl = this.element.querySelector('#customerEmail');
+		const phoneEl = this.element.querySelector('#customerPhone');
+
+		emailEl.textContent = email ? `Email: ${email}` : '';
+		phoneEl.textContent = phone ? `Phone: ${phone}` : '';
+
+		// shipping Address
 		this.shippingBlock.innerHTML = `
-			<h3>Shipping</h3>
-			<p><strong>${shipping.info.firstName} ${shipping.info.lastName}</strong></p>
-			<p>${shipping.info.streetAddress}${shipping.info.addressDetails ? ', ' + shipping.info.addressDetails : ''}</p>
-			<p>${shipping.info.city}, ${shipping.info.provinceOrState}, ${shipping.info.postalOrZip}</p>
-			<p>${shipping.info.countryLabel}</p>
-			<p>Phone: ${shipping.info.phone}</p>
+			<h3>Shipping Address</h3>
+			<p><strong>${shippingInfo.firstName || ''} ${shippingInfo.lastName || ''}</strong></p>
+			<p>${shippingInfo.streetAddress || ''}${shippingInfo.addressDetails ? ', ' + shippingInfo.addressDetails : ''}</p>
+			<p>${shippingInfo.city || ''}, ${shippingInfo.provinceOrState || ''}, ${shippingInfo.postalOrZip || ''}</p>
+			<p>${shippingInfo.countryLabel || ''}</p>
 		`;
 
-		const bill = payment.sameAsShipping
-			? shipping.info
-			: payment.billingAddress;
-
+		// billing address
 		this.billingBlock.innerHTML = `
-			<h3>Billing</h3>
-			<p><strong>${bill.streetAddress ? '' : payment.email}</strong></p>
-			${payment.email ? `<p>Email: ${payment.email}</p>` : ''}
-			${bill.streetAddress ? `<p>${bill.streetAddress}${bill.addressDetails ? ', ' + bill.addressDetails : ''}</p>` : ''}
-			${bill.city ? `<p>${bill.city}, ${bill.provinceOrState}, ${bill.postalOrZip}</p>` : ''}
-			${bill.countryLabel ? `<p>${bill.countryLabel}</p>` : ''}
+			<h3>Billing Address</h3>
+			<p><strong>${billingInfo.firstName || ''} ${billingInfo.lastName || ''}</strong></p>
+			<p>${billingInfo.streetAddress || ''}${billingInfo.addressDetails ? ', ' + billingInfo.addressDetails : ''}</p>
+			<p>${billingInfo.city || ''}, ${billingInfo.provinceOrState || ''}, ${billingInfo.postalOrZip || ''}</p>
+			<p>${billingInfo.countryLabel || ''}</p>
 		`;
 
-		this.shipBillEl.hidden = false;
+		this.customerDetailsEl.hidden = false;
 	}
+
 
 	money(n) {
 		return n.toLocaleString('en-CA', { style: 'currency', currency: 'CAD' });
