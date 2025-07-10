@@ -128,7 +128,8 @@ footer {
 #productContent,
 #cartContent,
 #shippingContent,
-#paymentContent {
+#paymentContent,
+#confirmationContent {
     min-height: 540px;
 }
 
@@ -875,7 +876,7 @@ textarea.form-control {
 }
 
 .card-list.card-list-cvv {
-    margin-top: .5rem;
+    margin: .5rem 0 1.5rem;
 }
 
 .card-list .card-list-item .card-item-icon.card-cvv-back {

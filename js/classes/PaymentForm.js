@@ -6,6 +6,7 @@ class PaymentForm {
     constructor(element) {
         this.form = element;
         this.billingAddressFields = this.form.querySelector('#billingAddressFields');
+        this.shippingSummary = document.getElementById('shippingSummary');
 
         this.fields = {
             email: this.form.querySelector('#email'),
@@ -74,7 +75,10 @@ class PaymentForm {
 
         this.fields.billCountry.addEventListener('change', () => this.handleBillingCountryChange());
 
-        this.fields.sameAsShipping.addEventListener('change', () => this.toggleBillingAddressFields());
+        this.fields.sameAsShipping.addEventListener('change', () => {
+            this.toggleBillingAddressFields();
+            this.updateShippingSummaryVisibility();
+        });
 
         this.form.addEventListener('submit', e => this.handlePaymentInfoSubmit(e));
     }
@@ -139,8 +143,26 @@ class PaymentForm {
 
         this.savePaymentInfo();
 
-        // TODO: redirect or confirmation
-        console.log('Payment info saved! Ready to proceed with order.');
+        const cartData = JSON.parse(localStorage.getItem('cart') || '[]');
+        const shippingData = JSON.parse(sessionStorage.getItem('shippingData') || '{}');
+        const paymentData = JSON.parse(sessionStorage.getItem('paymentData') || '{}');
+
+        // order ID – timestamp + 4‑digit random
+        const orderId = `REF-${Date.now()}-${Math.floor(1000 + Math.random() * 9000)}`;
+
+        sessionStorage.setItem('orderData', JSON.stringify({
+            id: orderId,
+            cart: cartData,
+            shipping: shippingData,
+            payment: paymentData
+        }));
+
+        // clear everything
+        localStorage.removeItem('cart');
+        sessionStorage.removeItem('shippingData');
+        sessionStorage.removeItem('paymentData');
+
+        window.location.assign('/confirmation.html');
     }
 
     toggleBillingAddressFields() {
@@ -236,10 +258,6 @@ class PaymentForm {
             }
 
             this.fields.email.value = data.email || '';
-            this.fields.cardName.value = data.cardName || '';
-            this.fields.cardNumber.value = data.cardNumber || '';
-            this.fields.expiry.value = data.expiry || '';
-            this.fields.cvv.value = data.cvv || '';
 
             if (data.sameAsShipping) {
                 this.fields.sameAsShipping.checked = true;
@@ -256,9 +274,9 @@ class PaymentForm {
                     this.fields.billCountry.value = data.billingAddress.country || '';
 
                     this.populateProvinceStateOptions();
-                    setTimeout(() => {
+                    requestAnimationFrame(() => {
                         this.fields.billProvinceState.value = data.billingAddress.provinceOrState || '';
-                    }, 0);
+                    });
 
                     this.fields.billPostalZip.value = data.billingAddress.postalOrZip || '';
                 }
@@ -272,10 +290,6 @@ class PaymentForm {
     savePaymentInfo() {
         const paymentData = {
             email: this.fields.email.value.trim(),
-            cardName: this.fields.cardName.value.trim(),
-            cardNumber: this.fields.cardNumber.value.trim(),
-            expiry: this.fields.expiry.value.trim(),
-            cvv: this.fields.cvv.value.trim(),
             sameAsShipping: this.fields.sameAsShipping.checked,
             billingAddress: null,
         };
@@ -293,6 +307,53 @@ class PaymentForm {
         }
 
         sessionStorage.setItem('paymentData', JSON.stringify(paymentData));
+    }
+
+    // same as shipping
+    updateShippingSummaryVisibility() {
+        if (this.fields.sameAsShipping.checked) {
+            this.renderShippingSummary();
+        } else {
+            this.shippingSummary.hidden = true;
+            this.shippingSummary.innerHTML = '';
+        }
+    }
+
+    renderShippingSummary() {
+        const dataRaw = sessionStorage.getItem('shippingData');
+        if (!dataRaw) {
+            return;
+        }
+
+        let shippingData;
+        try {
+            shippingData = JSON.parse(dataRaw);
+        } catch {
+            return;
+        }
+
+        const { info, method } = shippingData;
+        if (!info) {
+            return;
+        }
+
+        const methodLine = method
+            ? `<p>Method: ${method.label}</p>`
+            : '';
+
+        this.shippingSummary.innerHTML = `
+            <div class="summary-header">
+                <h3 class="summary-heading">Shipping Summary</h3>
+                <a href="/shipping.html" class="summary-edit-link" style="display: inline-block;">Edit</a>
+            </div>
+            <p><strong>${info.firstName} ${info.lastName}</strong></p>
+            <p>${info.streetAddress}${info.addressDetails ? ', ' + info.addressDetails : ''}</p>
+            <p>${info.city}, ${info.provinceOrState}, ${info.postalOrZip}</p>
+            <p>${info.countryLabel}</p>
+            <p>Phone: ${info.phone}</p>
+            ${methodLine}
+        `;
+        this.shippingSummary.hidden = false;
     }
     
 	// ---- validation ----
@@ -374,7 +435,7 @@ class PaymentForm {
     validateBillingPhone() {
         const val = this.fields.billPhone.value;
         if (!isValidPhone(val)) {
-            return this.showError('phone', 'Enter a valid 10-digit phone number');
+            return this.showError('billPhone', 'Enter a valid 10-digit phone number');
         }
 
         return this.clearError('phone');

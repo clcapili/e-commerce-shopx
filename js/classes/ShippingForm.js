@@ -286,6 +286,8 @@ class ShippingForm {
         if (this.deliveryNote) {
             this.deliveryNote.style.display = 'block';
         }
+
+        this.fields.firstName.focus();
     }
 
     bindEditButton() {

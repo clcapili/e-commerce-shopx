@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>shopx — Order Confirmation</title>
+        <meta name="title" content="Shop" />
+        <meta name="description" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="icon" type="image/png" href="/favicon.png">
+
+        <link href="css/styles.css" rel="stylesheet">
+    </head>
+    <body>
+        <!-- header -->
+        <header>
+            <!-- Skip link for accessibility -->
+            <div class="visually-hidden-focusable">
+                <a href="#main-content" class="skip-link">Skip to main content</a>
+            </div>
+
+            <div class="container">
+                <nav aria-label="Breadcrumb" class="breadcrumb">
+                    <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+                        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                            <a href="/" itemprop="item">
+                                <span itemprop="name">Shop</span>
+                            </a>
+                            <meta itemprop="position" content="1" />
+                        </li>
+
+                        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page">
+                            <span itemprop="name">Order Confirmation</span>
+                            <meta itemprop="position" content="2" />
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </header>
+
+        <!-- main -->
+        <main id="main-content">
+            <div id="confirmationContent">
+                <div class="container">
+                    <section id="thankYou" hidden>
+                        <h1>Thank you for your purchase!</h1>
+                        <p>Your order <strong>#<span id="orderNumber"></span></strong> has been placed.</p>
+                    </section>
+
+                    <section id="orderSummary" hidden>
+                        <h2>Order Summary</h2>
+                        <div id="items"></div>
+                        <div id="totals"></div>
+                    </section>
+
+                    <section id="shippingBilling" hidden>
+                        <h2>Shipping &amp; Billing</h2>
+                        <div id="shippingBlock"></div>
+                        <div id="billingBlock"></div>
+                    </section>
+
+                    <a href="/" id="continueShopping" class="btn">Continue shopping</a>
+                </div>
+            </div>
+        </main>
+
+        <!-- footer -->
+        <footer role="contentinfo" aria-label="Footer">
+            <div class="container">
+                <small>&copy; 2025 shopx. All rights reserved.</small>
+            </div>
+        </footer>
+        
+        <script src="/js/script.js"></script>
+        <script type="module" src="/js/load/loadOrderConfirmation.js"></script>
+    </body>
+</html>
