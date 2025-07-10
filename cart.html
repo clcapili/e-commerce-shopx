@@ -22,9 +22,18 @@
 
             <div class="container">
                 <nav aria-label="Breadcrumb" class="breadcrumb">
-                    <ol>
-                        <li><a href="/">Shop</a></li>
-                        <li aria-current="page">Cart</li>
+                    <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+                        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                            <a href="/" itemprop="item">
+                                <span itemprop="name">Shop</span>
+                            </a>
+                            <meta itemprop="position" content="1" />
+                        </li>
+
+                        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page">
+                            <span itemprop="name">Cart</span>
+                            <meta itemprop="position" content="2" />
+                        </li>
                     </ol>
                 </nav>
             </div>
@@ -39,12 +48,12 @@
                     <table class="cart-table" aria-labelledby="cartHeading">
                         <thead id="cartThead">
                             <tr>
-                                <th scope="col"></th>
+                                <td></td>
                                 <th scope="col" colspan="3">Product</th>
                                 <th scope="col">Qty</th>
                                 <th scope="col">Price</th>
                                 <th scope="col">Subtotal</th>
-                                <th scope="col"></th>
+                                <td></td>
                             </tr>
                         </thead>
 

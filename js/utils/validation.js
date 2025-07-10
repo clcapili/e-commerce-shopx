@@ -39,13 +39,15 @@ export function getProvinceStateErrorLabel(country) {
 }
 
 // card number with Luhn algorithm check
-export function isValidCardNumber(cardNumber) {
-    const digits = cardNumber.replace(/\s+/g, '');
-    if (!/^\d{13,19}$/.test(digits)) {
-        return false;
-    }
+export function isValidCardNumber(val) {
+  const digits = val.replace(/\D/g, ''); // strip non-digits
 
-    return luhnCheck(digits);
+  // check length between 13 and 20 digits
+  if (digits.length < 13 || digits.length > 20) {
+    return false;
+  }
+
+  return luhnCheck(digits);
 }
 
 // Luhn algorithm to verify credit card number validity
@@ -53,12 +55,18 @@ function luhnCheck(digits) {
     let sum = 0;
     let shouldDouble = false;
 
-    for (let i = digits.length - 1; i >= 0; i--) {
-        let digit = parseInt(digits[i], 10);
+    // process digits right-to-left
+    for (let i = cardNumber.length - 1; i >= 0; i--) {
+        let digit = parseInt(cardNumber.charAt(i), 10);
+
         if (shouldDouble) {
             digit *= 2;
-            if (digit > 9) digit -= 9;
+
+            if (digit > 9) {
+                digit -= 9;
+            }
         }
+
         sum += digit;
         shouldDouble = !shouldDouble;
     }

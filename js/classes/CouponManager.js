@@ -26,6 +26,10 @@ class CouponManager {
 
 		document.addEventListener('cartUpdated', this.handleCartUpdated.bind(this));
 		document.addEventListener('couponInvalidated', this.invalidateCoupon.bind(this));
+
+		this.input.addEventListener('input', () => {
+			this.input.value = this.input.value.toUpperCase();
+		});
 	}
 
 	loadFromSession() {
@@ -33,20 +37,31 @@ class CouponManager {
 		if (saved) {
 			const parsed = JSON.parse(saved);
 			this.couponApplied = true;
-			this.showSuccess(`Coupon applied: ${parsed.code}`);
+
+			const coupon = coupons[parsed.code];
+			this.showSuccess(parsed.code, coupon);
+
             this.refreshSummary();
 		}
 	}
 
 	handleApply(e) {
 		e.preventDefault();
-		if (this.couponApplied) return;
+
+		if (this.couponApplied) {
+			return;
+		}
 
 		const code = this.input.value.trim().toUpperCase();
 		const coupon = coupons[code];
 
-		if (!code) return this.showError('Please enter a coupon code.');
-		if (!coupon) return this.showError('Please enter a valid coupon code.');
+		if (!code) {
+			return this.showError('Please enter a coupon code');
+		}
+
+		if (!coupon) {
+			return this.showError('Please enter a valid coupon code');
+		}
 
 		const cart = JSON.parse(localStorage.getItem('cart')) || [];
 		const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -56,9 +71,14 @@ class CouponManager {
 		}
 
 		// success
-		sessionStorage.setItem('coupon', JSON.stringify({ code, discount: coupon.discount }));
+		sessionStorage.setItem('coupon', JSON.stringify({ 
+			code, 
+			discount: coupon.discount, 
+			type: coupon.type 
+		}));
+
 		this.clearError();
-		this.showSuccess(`Coupon applied: ${code}`);
+		this.showSuccess(code, coupon);
 		this.couponApplied = true;
 		this.refreshSummary();
 	}
@@ -110,13 +130,26 @@ class CouponManager {
         }, 3000);
     }
 
-
 	clearError() {
 		this.error.textContent = '';
 		this.input.setAttribute('aria-invalid', 'false');
 	}
 
-	showSuccess(message) {
+	showSuccess(code, coupon) {
+		let discountText = '';
+
+		if (coupon) {
+			if (coupon.type === 'percent') {
+				discountText = `${coupon.discount}% OFF`;
+			} else if (coupon.type === 'amount') {
+				discountText = `$${coupon.discount.toFixed(2)} OFF`;
+			} else if (coupon.type === 'freeShipping') {
+				discountText = 'Free Shipping';
+			}
+		}
+
+		const message = `${code}${discountText ? `: ${discountText}` : ''}`;
+
 		this.message.textContent = message;
 		this.result.style.display = 'flex';
 

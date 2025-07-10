@@ -22,10 +22,25 @@
 
             <div class="container">
                 <nav aria-label="Breadcrumb" class="breadcrumb">
-                    <ol>
-                        <li><a href="/">Shop</a></li>
-                        <li><a href="/cart.html">Cart</a></li>
-                        <li aria-current="page">Shipping</li>
+                    <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+                        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                            <a href="/" itemprop="item">
+                                <span itemprop="name">Shop</span>
+                            </a>
+                            <meta itemprop="position" content="1" />
+                        </li>
+
+                        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                            <a href="/cart.html" itemprop="item">
+                                <span itemprop="name">Cart</span>
+                            </a>
+                            <meta itemprop="position" content="2" />
+                        </li>
+
+                        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page">
+                            <span itemprop="name">Shipping</span>
+                            <meta itemprop="position" content="3" />
+                        </li>
                     </ol>
                 </nav>
             </div>

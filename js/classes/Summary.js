@@ -32,6 +32,7 @@ class Summary {
 		// validate coupon discount and free shipping
 		let couponDiscount = 0;
 		let freeShippingApplied = false;
+		let couponLabel = '';
 
 		if (this.coupon) {
 			const couponData = coupons[this.coupon.code];
@@ -43,8 +44,16 @@ class Summary {
 				freeShippingApplied = false;
 				document.dispatchEvent(new Event('couponInvalidated'));
 			} else {
-				couponDiscount = this.coupon.discount || 0;
-				if (couponData.freeShipping) {
+				if (this.coupon.type === 'percent') {
+					couponDiscount = subtotal * (this.coupon.discount / 100);
+					couponLabel = `${this.coupon.discount}% OFF`;
+				} else if (this.coupon.type === 'amount') {
+					couponDiscount = this.coupon.discount;
+				} else {
+					couponDiscount = 0;
+				}
+
+				if (couponData.freeShipping || this.coupon.type === 'freeShipping') {
 					shipping = 0;
 					freeShippingApplied = true;
 				}
@@ -62,18 +71,26 @@ class Summary {
 			this.orderSummaryEl.innerHTML = `
 				<div class="summary">
 					<div class="summary-item summary-subtotal"><span class="type">Subtotal</span><span class="fee">$${subtotal.toFixed(2)}</span></div>
-					<div class="summary-item"><span>Shipping</span><span>$${shipping.toFixed(2)}</span></div>
+					<div class="summary-item">
+						<span>Shipping</span>
+						<span>${
+						freeShippingApplied && this.delivery.fee > 0
+							? `<span class="original-shipping">$${this.delivery.fee.toFixed(2)}</span> <span class="free-shipping">$0.00</span>`
+							: `$${shipping.toFixed(2)}`
+						}</span>
+					</div>
+
 					<div class="summary-item"><span>Tax</span><span>$${tax.toFixed(2)}</span></div>
-					${(couponDiscount > 0 || freeShippingApplied) ? `
+
+					${(couponDiscount > 0) ? `
 						<div class="summary-item summary-coupon">
 							<span>Coupon</span>
 							<span class="discount">
-								${couponDiscount > 0 ? `- $${couponDiscount.toFixed(2)}` : ''}
-								${(couponDiscount > 0 && freeShippingApplied) ? ' + ' : ''}
-								${freeShippingApplied ? 'Free Shipping' : ''}
+								${couponLabel ? `${couponLabel} - $${couponDiscount.toFixed(2)}` : `- $${couponDiscount.toFixed(2)}`}
 							</span>
 						</div>
 					` : ''}
+
 					<div class="summary-item summary-total"><span class="type">Total</span><span class="fee">$${total.toFixed(2)}</span></div>
 				</div>
 			`;

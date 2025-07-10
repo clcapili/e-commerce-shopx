@@ -75,6 +75,9 @@ class ShippingForm {
 			}
 		});
 
+        this.fields.phone.addEventListener('input', this.formatPhoneInput.bind(this));
+        this.fields.shipPostalZip.addEventListener('input', this.formatPostalZipInput.bind(this));
+
         this.fields.shipCountry.addEventListener('change', () => this.handleShippingCountryChange());
 
 		this.shippingInfoForm.addEventListener('submit', (e) => this.handleShippingInfoSubmit(e));
@@ -83,8 +86,10 @@ class ShippingForm {
 
     handleShippingCountryChange() {
         this.updateShippingLabels();
+
         this.clearError('shipProvinceState');
         this.fields.shipProvinceState.value = '';
+        this.fields.shipPostalZip.value = '';
 
         this.fields.shipProvinceState.disabled = !this.fields.shipCountry.value;
 
@@ -169,6 +174,46 @@ class ShippingForm {
         }
     }
 
+    formatPhoneInput(e) {
+        let value = e.target.value.replace(/\D/g, '');
+
+        if (value.length > 10) {
+            value = value.slice(0, 10);
+        }
+
+        // (555) 555-5555 format
+        if (value.length >= 7) {
+            value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6)}`;
+        } else if (value.length >= 4) {
+            value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
+        } else if (value.length >= 1) {
+            value = `(${value}`;
+        }
+
+        e.target.value = value;
+    }
+
+    formatPostalZipInput(e) {
+        const country = this.fields.shipCountry.value;
+        let value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+
+        if (country === 'CA') {
+            // M5V 2H2
+            if (value.length > 6) {
+                value = value.slice(0, 6);
+            }
+
+            // insert space after 3 characters
+            if (value.length > 3) {
+                value = value.slice(0, 3) + ' ' + value.slice(3);
+            }
+        } else if (country === 'US') {
+            // 5 digits max
+            value = value.replace(/\D/g, '').slice(0, 5);
+        }
+
+        e.target.value = value;
+    }
 
 	saveShippingInfo() {
 		const {
@@ -443,14 +488,16 @@ class ShippingForm {
 		}
 	}
 
-	validateFirstName() {
-		const val = this.fields.firstName.value.trim();
-		if (!val) {
+    validateFirstName() {
+        const val = this.fields.firstName.value.trim();
+        if (!val) {
             return this.showError('firstName', 'Please enter your first name');
         }
 
-		return true;
-	}
+        this.clearError('firstName');
+        return true;
+    }
+
 
 	validateLastName() {
 		const val = this.fields.lastName.value.trim();
@@ -458,6 +505,7 @@ class ShippingForm {
             return this.showError('lastName', 'Please enter your last name');
         }
 
+        this.clearError('lastName');
 		return true;
 	}
 
@@ -467,6 +515,7 @@ class ShippingForm {
             return this.showError('phone', 'Enter a valid 10-digit phone number');
         }
 
+        this.clearError('phone');
         return true;
     }
 
@@ -476,6 +525,7 @@ class ShippingForm {
             return this.showError('shipStAddress', 'Please enter your address');
         }
 
+        this.clearError('shipStAddress');
 		return true;
 	}
 
@@ -485,6 +535,7 @@ class ShippingForm {
             return this.showError('shipCity', 'Please enter your city');
         }
 
+        this.clearError('shipCity');
 		return true;
 	}
 
@@ -492,7 +543,8 @@ class ShippingForm {
 		if (!this.fields.shipCountry.value) {
             return this.showError('shipCountry', 'Please select a country');
         }
-        
+
+        this.clearError('shipCountry');
 		return true;
 	}
 
@@ -504,6 +556,7 @@ class ShippingForm {
             return this.showError('shipProvinceState', getProvinceStateErrorLabel(country));
         }
 
+        this.clearError('shipProvinceState');
         return true;
     }
 

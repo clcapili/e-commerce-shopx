@@ -22,11 +22,32 @@
 
             <div class="container">
                 <nav aria-label="Breadcrumb" class="breadcrumb">
-                    <ol>
-                        <li><a href="/">Shop</a></li>
-                        <li><a href="/cart.html">Cart</a></li>
-                        <li><a href="/shipping.html">Shipping</a></li>
-                        <li aria-current="page">Payment</li>
+                    <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+                        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                            <a href="/" itemprop="item">
+                                <span itemprop="name">Shop</span>
+                            </a>
+                            <meta itemprop="position" content="1" />
+                        </li>
+
+                        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                            <a href="/cart.html" itemprop="item">
+                                <span itemprop="name">Cart</span>
+                            </a>
+                            <meta itemprop="position" content="2" />
+                        </li>
+
+                        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                            <a href="/shipping.html" itemprop="item">
+                                <span itemprop="name">Shipping</span>
+                            </a>
+                            <meta itemprop="position" content="3" />
+                        </li>
+
+                        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page">
+                            <span itemprop="name">Payment</span>
+                            <meta itemprop="position" content="4" />
+                        </li>
                     </ol>
                 </nav>
             </div>
@@ -45,44 +66,115 @@
                                     <h2 class="form-heading">Payment Information</h2>
                                     <p class="form-note">Fields marked <span aria-hidden="true">*</span> are required.</p>
 
-                                    <div class="form-field">
-                                        <label for="email" class="form-label">Email Address<span aria-hidden="true">*</span></label>
-                                        <input type="email" id="email" name="email" class="form-control" required aria-required="true" aria-describedby="email-error" />
-                                        <span class="error-message" id="email-error" aria-live="polite"></span>
-                                    </div>
+                                    <fieldset>
+                                        <legend class="visually-hidden">Contact Information</legend>
 
-                                    <h3 class="form-subheading">Payment Option</h3>
-                                    <div class="form-field">
-                                        <label for="cardName" class="form-label">Name on Card<span aria-hidden="true">*</span></label>
-                                        <input type="text" id="cardName" name="cardName" class="form-control" required aria-required="true" aria-describedby="cardName-error" />
-                                        <span class="error-message" id="cardName-error" aria-live="polite"></span>
-                                    </div>
+                                        <div class="form-field">
+                                            <label for="email" class="form-label">Email Address<span aria-hidden="true">*</span></label>
+                                            <input type="email" id="email" name="email" class="form-control" required aria-required="true" aria-describedby="email-error" />
+                                            <span class="error-message" id="email-error" aria-live="polite"></span>
+                                        </div>
+                                    </fieldset>
+                                    
+                                    <fieldset id="paymentOptionFields">
+                                        <legend>Payment Option</legend>
 
-                                    <div class="form-field">
-                                        <label for="cardNumber" class="form-label">Card Number<span aria-hidden="true">*</span></label>
-                                        <input type="text" id="cardNumber" name="cardNumber" class="form-control" inputmode="numeric" pattern="\d*" required aria-required="true" aria-describedby="cardNumber-error" />
-                                        <span class="error-message" id="cardNumber-error" aria-live="polite"></span>
-                                    </div>
+                                        <ul class="card-list">
+                                            <li class="card-list-item">
+                                                <span class="card-item-icon card-visa">
+                                                    <span class="visually-hidden">Visa</span>
+                                                </span>
+                                            </li>
 
-                                    <div class="form-field">
-                                        <label for="expiry" class="form-label">Expiry Date (MM/YY)<span aria-hidden="true">*</span></label>
-                                        <input type="text" id="expiry" name="expiry" class="form-control" placeholder="MM/YY" required aria-required="true" aria-describedby="expiry-error" />
-                                        <span class="error-message" id="expiry-error" aria-live="polite"></span>
-                                    </div>
+                                            <li class="card-list-item">
+                                                <span class="card-item-icon card-mastercard">
+                                                    <span class="visually-hidden">Mastercard</span>
+                                                </span>
+                                            </li>
 
-                                    <div class="form-field">
-                                        <label for="cvv" class="form-label">CVV<span aria-hidden="true">*</span></label>
-                                        <input type="text" id="cvv" name="cvv" class="form-control" inputmode="numeric" pattern="\d{3,4}" maxlength="4" required aria-required="true" aria-describedby="cvv-error" />
-                                        <span class="error-message" id="cvv-error" aria-live="polite"></span>
-                                    </div>
+                                            <li class="card-list-item">
+                                                <span class="card-item-icon card-amex">
+                                                    <span class="visually-hidden">AMERICAN EXPRESS</span>
+                                                </span>
+                                            </li>
 
-                                    <div class="form-check">
-                                        <input type="checkbox" id="sameAsShipping" name="sameAsShipping" class="form-check-input" />
-                                        <label for="sameAsShipping" class="form-check-label">Same as shipping address</label>
-                                    </div>
+                                            <li class="card-list-item">
+                                                <button class="tooltip btn-tooltip" aria-describedby="tooltipContentPaymentOption" aria-haspopup="true" aria-expanded="false" type="button">
+                                                    <span class="visually-hidden">Payment Option Info</span>
+                                                </button>
 
-                                    <div id="billingAddressFields">
-                                        <h3 class="form-subheading">Billing Address</h3>
+                                                <div id="tooltipContentPaymentOption" class="tooltip-content" role="tooltip">
+                                                    <span class="tooltip-heading">Credit card payment terms & conditions</span>
+                                                    
+                                                    <ul class="tooltip-list">
+                                                        <li>We accept payment from the following credit cards: Visa, Mastercard, American Express</li>
+                                                        <li>We only accept one-time payments.</li>
+                                                        <li>Your transaction date will be the date when your order is shipped from our warehouse.</li>
+                                                        <li>Total amount of your order will be charged to your credit card on its payment due date.</li>
+                                                        <li>The cardholder's name must match your account name.</li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        </ul>
+
+                                        <div class="form-field">
+                                            <label for="cardName" class="form-label">Name on Card<span aria-hidden="true">*</span></label>
+                                            <input type="text" id="cardName" name="cardName" class="form-control" required aria-required="true" aria-describedby="cardName-error" />
+                                            <span class="error-message" id="cardName-error" aria-live="polite"></span>
+                                        </div>
+
+                                        <div class="form-field">
+                                            <label for="cardNumber" class="form-label">Card Number<span aria-hidden="true">*</span></label>
+                                            <input type="text" id="cardNumber" name="cardNumber" class="form-control" inputmode="numeric" pattern="(\d\s?){13,19}" maxlength="24" required aria-required="true" aria-describedby="cardNumber-error" />
+                                            <span class="error-message" id="cardNumber-error" aria-live="polite"></span>
+                                        </div>
+
+                                        <div class="form-field">
+                                            <label for="expiry" class="form-label">Expiry Date (MM/YY)<span aria-hidden="true">*</span></label>
+                                            <input type="text" id="expiry" name="expiry" class="form-control" placeholder="MM/YY" required aria-required="true" aria-describedby="expiry-error" />
+                                            <span class="error-message" id="expiry-error" aria-live="polite"></span>
+                                        </div>
+
+                                        <div class="form-field">
+                                            <label for="cvv" class="form-label">CVV<span aria-hidden="true">*</span></label>
+                                            <input type="text" id="cvv" name="cvv" class="form-control" inputmode="numeric" pattern="\d{3,4}" maxlength="4" required aria-required="true" aria-describedby="cvv-error" />
+                                            <span class="error-message" id="cvv-error" aria-live="polite"></span>
+
+                                            <ul class="card-list card-list-cvv">
+                                                <li class="card-list-item">
+                                                    <span class="card-item-icon card-cvv-back">
+                                                        <span class="visually-hidden">Card CVV Back</span>
+                                                    </span>
+                                                </li>
+
+                                                <li class="card-list-item">
+                                                    <span class="card-item-icon card-cvv-front">
+                                                        <span class="visually-hidden">Card CVV Front</span>
+                                                    </span>
+                                                </li>
+
+                                                <li class="card-list-item">
+                                                    <button class="tooltip btn-tooltip" aria-describedby="tooltipContentCVV" aria-haspopup="true" aria-expanded="false" type="button">
+                                                        <span class="visually-hidden">CVV Info</span>
+                                                    </button>
+
+                                                    <div id="tooltipContentCVV" class="tooltip-content" role="tooltip">
+                                                        <span class="tooltip-heading">About Security Code</span>
+                                                        <p>The 3-or 4-digit numbers on the back of the card. (For SAISON AMERICAN EXPRESS®, it is on the front of the card.)</p>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input type="checkbox" id="sameAsShipping" name="sameAsShipping" class="form-check-input" />
+                                            <label for="sameAsShipping" class="form-check-label">Same as shipping address</label>
+                                        </div>
+                                    </fieldset>
+                                    
+
+                                    <fieldset id="billingAddressFields">
+                                        <legend>Billing Address</legend>
 
                                         <div class="form-field">
                                             <label for="billPhone" class="form-label">Phone Number<span aria-hidden="true">*</span></label>
@@ -131,7 +223,7 @@
                                             <input type="text" id="billPostalZip" name="billPostalZip" class="form-control" required aria-required="true" aria-describedby="billPostalZip-error" />
                                             <span class="error-message" id="billPostalZip-error" aria-live="polite"></span>
                                         </div>
-                                    </div>
+                                    </fieldset>
                                 </form>
                             </section>
                         </div>

@@ -64,6 +64,14 @@ class PaymentForm {
             }
         });
 
+        this.fields.cardNumber.addEventListener('input', this.formatCardNumber.bind(this));
+        this.fields.expiry.addEventListener('input', this.formatExpiryInput.bind(this));
+        this.fields.cvv.addEventListener('input', e => {
+            e.target.value = e.target.value.replace(/\D/g, '');
+        });
+        this.fields.billPhone.addEventListener('input', this.formatPhoneInput.bind(this));
+        this.fields.billPostalZip.addEventListener('input', this.formatPostalZipInput.bind(this));
+
         this.fields.billCountry.addEventListener('change', () => this.handleBillingCountryChange());
 
         this.fields.sameAsShipping.addEventListener('change', () => this.toggleBillingAddressFields());
@@ -76,6 +84,7 @@ class PaymentForm {
 
         this.clearError('billProvinceState');
         this.fields.billProvinceState.value = '';
+        this.fields.billPostalZip.value = '';
 
         this.fields.billProvinceState.disabled = !this.fields.billCountry.value;
 
@@ -143,6 +152,75 @@ class PaymentForm {
             this.billingAddressFields.style.display = 'block';
             this.populateProvinceStateOptions();
         }
+    }
+
+    formatCardNumber(e) {
+        let value = e.target.value.replace(/\D/g, '');
+
+        if (value.length > 20) {
+            value = value.slice(0, 20);
+        }
+
+        // 1234 5678 9012 3456 7890
+        value = value.replace(/(.{4})/g, '$1 ').trim();
+
+        e.target.value = value;
+    }
+
+    formatExpiryInput(e) {
+        let value = e.target.value.replace(/\D/g, '');
+
+        if (value.length > 4) {
+            value = value.slice(0, 4);
+        }
+
+        // insert slash
+        if (value.length >= 3) {
+            value = `${value.slice(0, 2)}/${value.slice(2)}`;
+        }
+
+        e.target.value = value;
+    }
+
+    formatPhoneInput(e) {
+        let value = e.target.value.replace(/\D/g, '');
+
+        if (value.length > 10) {
+            value = value.slice(0, 10);
+        }
+
+        // (555) 555-5555
+        if (value.length >= 7) {
+            value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6)}`;
+        } else if (value.length >= 4) {
+            value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
+        } else if (value.length >= 1) {
+            value = `(${value}`;
+        }
+
+        e.target.value = value;
+    }
+
+    formatPostalZipInput(e) {
+        const country = this.fields.billCountry.value;
+        let value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+
+        if (country === 'CA') {
+            // M5V 2H2
+            if (value.length > 6) {
+                value = value.slice(0, 6);
+            }
+
+            // insert space after 3 characters
+            if (value.length > 3) {
+                value = value.slice(0, 3) + ' ' + value.slice(3);
+            }
+        } else if (country === 'US') {
+            // 5 digits max
+            value = value.replace(/\D/g, '').slice(0, 5);
+        }
+
+        e.target.value = value;
     }
 
     prefillPaymentInfo() {
@@ -274,11 +352,11 @@ class PaymentForm {
     validateExpiry() {
         const val = this.fields.expiry.value.trim();
         if (!val) {
-            return this.showError('expiry', 'Please enter expiry date');
+            return this.showError('expiry', 'Please enter the expiration date');
         }
 
         if (!isValidExpiry(val)) {
-            return this.showError('expiry', 'Expiry date must be in MM/YY format and not expired');
+            return this.showError('expiry', 'Please enter a valid expiration date');
         }
 
         return this.clearError('expiry');
