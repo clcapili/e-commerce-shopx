@@ -1,3 +1,6 @@
+// current year
+document.getElementById("currentYear").textContent = new Date().getFullYear();
+
 // char counter
 function initCharCounters() {
     const wrappers = document.querySelectorAll('.char-limit-wrapper');

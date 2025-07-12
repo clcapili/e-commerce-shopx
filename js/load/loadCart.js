@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .slice(0, 3);
         
         // elements
-        const oldWrapper = document.getElementById('relatedWrapper');
+        const oldWrapper = document.getElementById('relatedProductsWrapper');
         if (oldWrapper) {
             oldWrapper.remove();
         }

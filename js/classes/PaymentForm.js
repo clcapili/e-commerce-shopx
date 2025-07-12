@@ -148,7 +148,7 @@ class PaymentForm {
         const paymentData = JSON.parse(sessionStorage.getItem('paymentData') || '{}');
 
         // order ID – timestamp + 4‑digit random
-        const orderId = `REF-${Date.now()}-${Math.floor(1000 + Math.random() * 9000)}`;
+        const orderId = `#${Date.now()}-${Math.floor(1000 + Math.random() * 9000)}`;
 
         sessionStorage.setItem('orderData', JSON.stringify({
             id: orderId,
@@ -288,9 +288,34 @@ class PaymentForm {
     }
 
     savePaymentInfo() {
+        const rawCardNumber = this.fields.cardNumber.value.replace(/\s/g, '');
+        const rawExpiry = this.fields.expiry.value.replace(/\s/g, '');
+
+        const last4 = rawCardNumber.slice(-4);
+        const expMonth = rawExpiry.slice(0, 2);
+        const expYear = rawExpiry.slice(-2).length === 2 ? '20' + rawExpiry.slice(-2) : ''; // Handle "07/32" as "2032"
+
+        // card type
+        let type = 'Card';
+        if (/^4/.test(rawCardNumber)) {
+            type = 'Visa';
+        } else if (/^5[1-5]/.test(rawCardNumber)) {
+            type = 'Mastercard';
+        } else if (/^3[47]/.test(rawCardNumber)) {
+            type = 'American Express';
+        } else if (/^6(?:011|5)/.test(rawCardNumber)) {
+            type = 'Discover';
+        } else if (/^35/.test(rawCardNumber)) {
+            type = 'JCB';
+        }
+
         const paymentData = {
             email: this.fields.email.value.trim(),
             sameAsShipping: this.fields.sameAsShipping.checked,
+            cardNumber: last4,
+            expMonth,
+            expYear,
+            type,
             billingAddress: null,
         };
 

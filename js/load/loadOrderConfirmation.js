@@ -6,4 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (block) {
         new OrderConfirmation(block);
     }
+
+    const printBtn = document.getElementById('printOrder');
+    if (printBtn) {
+        printBtn.addEventListener('click', () => {
+            window.print();
+        });
+    }
 });

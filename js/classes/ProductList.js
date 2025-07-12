@@ -109,7 +109,7 @@ class ProductList extends Products {
 					<li class="page-item page-prev ${this.currentPage === 1 ? 'disabled' : ''}">
 						<a class="page-link" href="#" data-page="${this.currentPage - 1}">
 							<span class="icon" aria-hidden="true">
-								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon-arrow-left">
 									<path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
 								</svg>
 							</span>
@@ -162,7 +162,7 @@ class ProductList extends Products {
 							<span class="text">Next</span>
 
 							<span class="icon" aria-hidden="true">
-								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon-arrow-right">
 									<path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
 								</svg>
 							</span>

@@ -65,6 +65,10 @@ body.confirmation-page {
     flex-basis: 100%;
 }
 
+p {
+    line-height: 1.25;
+}
+
 a {
     color: #000000;
 }
@@ -189,11 +193,11 @@ footer {
     background-color: #FFFFFF;
 }
 
-.btn-cart:hover svg {
+.btn-cart:hover .icon {
     stroke: #000000;
 }
 
-.btn-cart svg {
+.btn-cart .icon {
     width: 25px;
     stroke: #FFFFFF;
 }
@@ -239,7 +243,7 @@ footer {
     cursor: pointer;
 }
 
-.btn-remove svg {
+.btn-remove .icon {
     width: 20px;
     stroke: #000000;
 }
@@ -269,7 +273,7 @@ footer {
     margin-top: 1px;
 }
 
-.btn-edit svg {
+.btn-edit .icon {
     width: 20px;
     stroke: #000000;
 }
@@ -733,6 +737,15 @@ textarea.form-control {
     margin-bottom: 0;
 }
 
+.shipping-billing-wrapper {
+    margin-top: 1.5rem;
+}
+
+.shipping-billing-wrapper h3 {
+    margin: 0 0 .5rem;
+    text-transform: uppercase;
+}
+
 /* checkout */
 .checkout-wrapper {
     background-color: #FFFFFF;
@@ -786,12 +799,14 @@ textarea.form-control {
 /* confirmation */
 #thankYou {
     display: flex;
+    align-items: flex-start;
     gap: 10px;
     margin-bottom: 1rem;
 }
 
-#thankYou svg {
-    width: 45px;
+#thankYou .icon-round-check {
+    min-width: 50px;
+    max-width: 50px;
 }
 
 #thankYou h1,
@@ -808,13 +823,163 @@ textarea.form-control {
 }
 
 .checkout-wrapper#orderUpdates h2,
-.checkout-wrapper#customerDetails h2 {
+.checkout-wrapper#customerInfo h2 {
     margin: 0 0 .5rem;
 }
 
-.checkout-wrapper#orderSummary h2,
-.checkout-wrapper#orderSummary p {
-    margin: 0 0 1rem;
+#orderNumber {
+    font-weight: 700;
+}
+
+#billingBlock {
+    margin-bottom: 1.5rem;
+}
+
+#paymentMethod p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+#printOrder {
+    display: block;
+    margin-bottom: .5rem;
+}
+
+.customer-detail {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.customer-detail .icon {
+    width: 20px;
+}
+
+.order-number-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-copy {
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+.btn-copy.copied {
+    cursor: initial;
+}
+
+.btn-copy .icon {
+    width: 20px;
+}
+
+.btn-copy .icon-check {
+	display: none;
+    stroke: #008000;
+}
+
+.btn-copy.copied .icon-copy {
+	display: none;
+}
+
+.btn-copy.copied .icon-check {
+	display: inline;
+}
+
+.order-summary-heading {
+    display: flex;
+    margin-bottom: 1rem;
+    align-items: center;
+    gap: 10px;
+}
+
+.order-summary-heading .icon {
+    width: 23px;
+}
+
+.order-summary-heading h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+}
+
+#orderTotalItems {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    background-color: #000000;
+    width: 14px;
+    padding: 0.3rem;
+    border-radius: 50px;
+    color: #FFFFFF;
+    font-size: .75rem;
+}
+
+#orderSummaryItems {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #000000;
+}
+
+#orderSummaryItems .order-item:not(:last-child) {
+    margin-bottom: 1rem;
+}
+
+.order-item {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.order-item img {
+    max-width: 80px;
+    height: auto;
+}
+
+.order-item p {
+    margin: 0;
+}
+
+.order-item-details {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.item-meta {
+    margin-bottom: .25rem;
+}
+
+.item-meta p {
+    font-size: .75rem;
+    color: #595959;
+}
+
+.item-meta span {
+    text-transform: uppercase;
+}
+
+.item-title {
+    font-size: .938rem;
+    font-weight: 700;
+}
+
+.order-item-qty {
+    display: inline-block;
+    font-size: .75rem;
+    line-height: 1;
+    padding: 2px 5px;
+    border: 1px solid #393939;
+}
+
+.order-item-price {
+    font-weight: 700;
 }
 
 /* coupon */
@@ -905,7 +1070,11 @@ textarea.form-control {
     gap: 10px;
 }
 
-.card-list .card-list-item .card-item-icon {
+.card-list.card-list-cvv {
+    margin: .5rem 0 1.5rem;
+}
+
+.card-item-icon {
     position: relative;
     display: inline-block;
     width: 41px;
@@ -917,28 +1086,24 @@ textarea.form-control {
     background-repeat: no-repeat;
 }
 
-.card-list .card-list-item .card-item-icon.card-visa {
-    background-image: url('/img/card-visa.svg');
-}
-
-.card-list .card-list-item .card-item-icon.card-mastercard {
-    background-image: url('/img/card-mastercard.svg');
-}
-
-.card-list .card-list-item .card-item-icon.card-amex {
-    background-image: url('/img/card-amex.svg');
-}
-
-.card-list.card-list-cvv {
-    margin: .5rem 0 1.5rem;
-}
-
-.card-list .card-list-item .card-item-icon.card-cvv-back {
+.card-item-icon.card-cvv-back {
     background-image: url('/img/card-cvv_back.svg');
 }
 
-.card-list .card-list-item .card-item-icon.card-cvv-front {
+.card-item-icon.card-cvv-front {
     background-image: url('/img/card-cvv_front.svg');
+}
+
+.card-item-icon.card-visa {
+    background-image: url('/img/card-visa.svg');
+}
+
+.card-item-icon.card-mastercard {
+    background-image: url('/img/card-mastercard.svg');
+}
+
+.card-item-icon.card-amex {
+    background-image: url('/img/card-amex.svg');
 }
 
 /* modal */
@@ -1014,11 +1179,6 @@ textarea.form-control {
 
     cursor: pointer;
 }
-
-.btn-modal-close svg {
-    width: 30px;
-}
-
 
 /* modal slide down */
 .modal.show .modal-dialog-slide-down {
@@ -1395,6 +1555,14 @@ textarea.form-control {
     .pagination li.page-next span.text {
         display: block;
     }
+
+    #printOrder {
+        display: inline-block;
+    }
+
+    .shipping-billing-wrapper .row .col {
+        flex: 1;
+    }
 }
 
 @media (min-width: 576px) {
@@ -1514,5 +1682,29 @@ textarea.form-control {
 @media (min-width: 1200px) {
     .container {
         max-width: 1140px;
+    }
+}
+
+/* print */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #confirmationContent, #confirmationContent * {
+        visibility: visible;
+    }
+
+    #confirmationContent {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        margin-top: 2rem;
+    }
+
+    #printOrder,
+    #continueShopping {
+        display: none;
     }
 }
